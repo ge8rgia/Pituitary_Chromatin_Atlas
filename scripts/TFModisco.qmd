@@ -1,0 +1,26 @@
+---
+title: "TFModisco"
+format: html
+editor: visual
+---
+
+# Import Libraries
+```{r}
+library(readr)
+
+```
+
+# Load data
+```{r}
+Cortico_grouping_4_down <- read_csv("/Users/georgiagoddard/Downloads/grouping_4_down_modisco_results_named.csv")
+Cortico_tfmodisco<- read_csv("/Users/georgiagoddard/Downloads/Cortico_modisco_results_named.csv")
+
+Lacto_grouping_6_up <- read_csv("/Users/georgiagoddard/Downloads/grouping_6_up_modisco_results_named.csv")
+Lacto_tfmodisco<- read_csv("/Users/georgiagoddard/Downloads/Lacto_modisco_results_named.csv")
+```
+
+# Downstream
+```{r}
+
+
+```
