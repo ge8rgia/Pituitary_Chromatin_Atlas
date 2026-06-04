@@ -4,18 +4,21 @@ format: html
 editor: visual
 ---
 
-From: https://github.com/GreenleafLab/motifmatchr and  https://greenleaflab.github.io/motifmatchr/articles/motifmatchr.html#motifmatchr
+From: https://github.com/GreenleafLab/motifmatchr and https://greenleaflab.github.io/motifmatchr/articles/motifmatchr.html#motifmatchr
 
 # Install Motifmatchr
+
 ```{r}
 
 #BiocManager::install(c("TFBSTools", "motifmatchr", "BSgenome.Mmusculus.UCSC.mm10", "GenomicRanges"))
 #BiocManager::install(c("SummarizedExperiment"))
 #BiocManager::install("universalmotif")
+#BiocManager::install("BSgenome.Rnorvegicus.UCSC.rn6")
 
 library(motifmatchr)
 library(TFBSTools)
 library(BSgenome.Mmusculus.UCSC.mm10)
+library(BSgenome.Rnorvegicus.UCSC.rn6)
 library(GenomicRanges)
 library(SummarizedExperiment)
 library(universalmotif)
@@ -24,14 +27,25 @@ library(BiocParallel)
 ```
 
 # Load data
-Mandatory inputs:
-1. Position weight matrices (PWM) stored as an object from the TFBSTools package
-2. Either a set of genomic ranges or a set of sequences 
+
+Mandatory inputs: 
+1. Position weight matrices (PWM) stored as an object from the TFBSTools package 
+2. Either a set of genomic ranges or a set of sequences
+
 ```{r}
 
-# Genomic Ranges (peaks) in GRanges object format
-consensus_chromatin_landscape <- rtracklayer::import("/Users/georgiagoddard/Desktop/Research_Project/TF_mapping/metadata/consensus_chromatin_landscape.bed")
+# Genomic Ranges (peaks) in GRanges object format 
+#consensus_chromatin_landscape <- rtracklayer::import("/Users/georgiagoddard/Desktop/Research_Project/TF_mapping/metadata/consensus_chromatin_landscape.bed")
+#consensus_chromatin_landscape <- rtracklayer::import("/Users/georgiagoddard/Desktop/Research_Project/TF_mapping/metadata/exp24_consensus_peaks_sorted_clean.bed")
+
+# Prolactin specific - mm10 reduced regions
+consensus_chromatin_landscape <- rtracklayer::import("/Users/georgiagoddard/Desktop/Research_Project/TF_mapping/metadata/consensus_chromatin_landscape_chr13.bed")
+# Prolactin specific - rn6 reduced regions
+#consensus_chromatin_landscape <- rtracklayer::import("/Users/georgiagoddard/Desktop/Research_Project/TF_mapping/metadata/exp24_consensus_peaks_sorted_clean_chr17.bed")
+
+# Genome
 genome(consensus_chromatin_landscape) <- "mm10"
+#genome(consensus_chromatin_landscape) <- "rn6"
 
 # Motif sequences
 jaspar_2026="/Users/georgiagoddard/Desktop/Research_Project/TF_mapping/metadata/JASPAR_CORE_2026_non-redundant.meme"
@@ -56,6 +70,7 @@ names(pfm_motifs) <- sapply(pfm_motifs, function(x) paste0(x@ID, "_", x@name))
 ```
 
 # Inputs
+
 ```{r}
 
 motifs_object <- pfm_motifs
@@ -64,20 +79,23 @@ peaks <- consensus_chromatin_landscape
 ```
 
 # Get motif matches in peaks
+
 ```{r}
 
 register(MulticoreParam(4))
 
 motif_ix <- matchMotifs(motifs_object,
                         peaks,
-                        genome = BSgenome.Mmusculus.UCSC.mm10)
+                        genome = BSgenome.Mmusculus.UCSC.mm10,
+                        p.cutoff = 5e-2)
 #motifMatches(motif_ix)
 
 # Save object
-saveRDS(motif_ix, file = "/Users/georgiagoddard/Desktop/motif_matches_mm10.rds")
+saveRDS(motif_ix, file = "/Users/georgiagoddard/Desktop/rn6_prl_motifs/motif_matches_prl_mm10_p0.05.rds")
 ```
 
 # Get motif poisitions within peaks
+
 ```{r}
 
 register(MulticoreParam(8))
@@ -85,33 +103,67 @@ register(MulticoreParam(8))
 motif_pos <- matchMotifs(motifs_object,
                          peaks,
                          genome = BSgenome.Mmusculus.UCSC.mm10,
+                         p.cutoff = 5e-2,
                          out = "positions")
 
 # Save object
-saveRDS(motif_pos, file = "/Users/georgiagoddard/Desktop/motif_positions_mm10.rds")
+saveRDS(motif_pos, file = "/Users/georgiagoddard/Desktop/mm10_prl_motifs/motif_positions_prl_mm10_p0.05.rds")
 
 ```
 
-# Save Objects
+```{r}
+# The following code is for the color scale bit
+all_matches <- unlist(motif_pos)
+all_matches$score <- all_matches$score 
+
+rtracklayer::export(all_matches, "/Users/georgiagoddard/Desktop/mm10_prl_motifs/motif_matches.bed", format = "BED")
+
+
+```
+
+# Read Objects
+
 ```{r}
 
 # Read objects in
-motif_ix <- readRDS("/Users/georgiagoddard/Desktop/motif_matches_mm10.rds")
-motif_pos <- readRDS("/Users/georgiagoddard/Desktop/motif_positions_mm10.rds")
+motif_ix <- readRDS("/Users/georgiagoddard/Desktop/mm10_prl_motifs/motif_matches_prl_mm10_p0.05.rds")
+#motif_ix_mm10 <- readRDS("/Users/georgiagoddard/Downloads/all_motif_matches_mm10.rds")
+motif_pos <- readRDS("/Users/georgiagoddard/Desktop/mm10_prl_motifs/motif_positions_prl_mm10_p0.05.rds")
 
 ```
 
 # Download Outputs
+
 ```{r}
 # Matches
 match_df <- as.data.frame(as.matrix(motifMatches(motif_ix)))
-rownames(match_df) <- paste0(seqnames(peaks), ":", start(peaks), "-", end(peaks))
-write.csv(match_df, "/Users/georgiagoddard/Desktop/Motifs/Peak_motif_matches.csv")
+rownames(match_df) <- paste0(seqnames(motif_ix), ":", start(motif_ix), "-", end(motif_ix))
+write.csv(match_df, "/Users/georgiagoddard/Desktop/rn6_prl_motifs/Peak_motif_matches.csv")
 
 # Positions
 motif_bed <- unlist(motif_pos)
 mcols(motif_bed)$name <- names(motif_bed)
-export.bed(motif_bed, "/Users/georgiagoddard/Desktop/Motifs/Peak_motif_positions.bed")
+export.bed(motif_bed, "/Users/georgiagoddard/Desktop/mm10_prl_motifs/Peak_motif_positions.bed")
+
+# Create a subfolder to keep your Desktop clean
+output_dir <- "/Users/georgiagoddard/Desktop/mm10_prl_motifs/splits_0.05_scores"
+
+if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
+
+for (motif_id in names(motif_pos)) {
+
+  current_motif <- motif_pos[[motif_id]]
+  if (length(current_motif) > 0) {
+  
+    seqlevelsStyle(current_motif) <- "UCSC"
+    clean_name <- gsub("[^[:alnum:]]", "_", motif_id)
+    file_path <- file.path(output_dir, paste0(clean_name, ".bed"))
+    #export.bed(current_motif, con = file_path)
+    rtracklayer::export(current_motif, file_path, format = "BED")
+  }
+}
+
+message("Done.")
 
 ```
 
@@ -123,28 +175,30 @@ export.bed(motif_bed, "/Users/georgiagoddard/Desktop/Motifs/Peak_motif_positions
 #bgzip Peak_motif_positions_sorted.bed
 # Create the index (.tbi)
 #tabix -p bed Peak_motif_positions_sorted.bed.gz
-
+#rm Peak_motif_positions.bed
 ```
 
-# Load Positions back in 
+# Load Positions back in
+
 ```{r}
 
 # Import positions file
-motif_bed_imported <- import("/Users/georgiagoddard/Desktop/Motifs/A_Peak_motif_positions_sorted.bed.gz")
+motif_bed_imported <- import("/Users/georgiagoddard/Desktop/mm10_prl_motifs/Peak_motif_positions_sorted.bed.gz")
+```
 
+```{r}
 # Build GRanges object 
 motif_pos <- split(motif_bed_imported, mcols(motif_bed_imported)$name)
 print(length(motif_pos))
 print(head(names(motif_pos)))
-
-
 ```
 
 ## Download one BED file per motif
+
 ```{r}
 
 # Create a subfolder to keep your Desktop clean
-output_dir <- "/Users/georgiagoddard/Desktop/Motifs/Motifs_separate"
+output_dir <- "/Users/georgiagoddard/Desktop/mm10_prl_motifs/splits_0.05_scores"
 
 if (!dir.exists(output_dir)) dir.create(output_dir, recursive = TRUE)
 
@@ -164,8 +218,8 @@ message("Done.")
 
 ```
 
-
 # Look for Motifs in target peaks
+
 ```{r}
 
 # Load match_df matrix into R studio
@@ -176,6 +230,3 @@ message("Done.")
 
 
 ```
-
-
-
