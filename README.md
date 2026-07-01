@@ -151,10 +151,33 @@ the `Metadata/pituitary_epigenomics.xlsx` database.
 
 ## Environment & installation
 
-Core dependencies (see `Supplementary Table 1` of the dissertation for the complete,
-version-pinned list):
-
-ADD ENVIRONMENT .YML FILES!!!!
+Two conda environments are provided at the base of this repository, mirroring the exact
+setups used on the HPC cluster for this project (see `Supplementary Table 1` of the
+dissertation for the full version-pinned package list underlying each):
+ 
+- **`BPNet_environment.yml`** — for `BPNet_pipeline/` (used for the
+  ChIP-seq/CUT&RUN validation models).
+- **`ChromBPNet_environment.yml`** — for `ChromBPNet_pipeline/` and `Downstream_Analyses/`
+  (`chrombpnet`, `modisco-lite`, and associated Python analysis packages).
+Clone the repository, then create both environments from the repo root:
+ 
+```bash
+git clone <repo-url> Pituitary_Chromatin_Atlas
+cd Pituitary_Chromatin_Atlas
+ 
+conda env create -f BPNet_environment.yml
+conda env create -f ChromBPNet_environment.yml
+```
+ 
+Activate the relevant environment depending on which pipeline is being run:
+ 
+```bash
+# For BPNet_pipeline/ scripts
+conda activate BPNet-lite
+ 
+# For ChromBPNet_pipeline/ and Downstream_Analyses/ scripts
+conda activate ChromBPNet
+```
 
 **R (v4.5.1)** environment (for motif matching, plotting, GenomicRanges-based workflows):
 ```r
@@ -166,8 +189,8 @@ BiocManager::install(c("motifmatchr", "TFBSTools", "GenomicRanges",
 ```
 
 All deep learning models were trained on NVIDIA A100 GPU nodes; GPU access (CUDA-enabled)
-is required for model training steps (Stage 2), though inference/downstream analysis
-(Stages 3, `Downstream_Analyses/`) can run on CPU.
+is required for model training steps (Section 2), though inference/downstream analysis
+(Section 3, `Downstream_Analyses/`) can run on CPU.
 
 ---
 
