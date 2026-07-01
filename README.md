@@ -60,6 +60,9 @@ and marginal footprinting, benchmarked against the JASPAR 2026 vertebrate motif 
 ```
 Pituitary_Chromatin_Atlas/
 ├── README.md
+├── BPNet_environment.yml        # Conda environment for the BPNet pipeline
+├── ChromBPNet_environment.yml   # Conda environment for the ChromBPNet pipeline
+│
 ├── BPNet_pipeline/                  # BPNet models trained on ChIP-seq/CUT&RUN data
 │   ├── 0_negatives_bpnet.sh         #   GC-matched background region generation
 │   ├── 1_generate_JSON.sh           #   Pipeline configurations
@@ -94,7 +97,7 @@ Pituitary_Chromatin_Atlas/
     ├── JASPAR_CORE_2026_with_novel_POU1F1.meme          # JASPAR 2026 vertebrate motifs + de novo POU1F1 motif (2060 motifs)
     ├── motif_sequences.tsv                              # Curated motif sequences from JASPAR_CORE_2026_non-redundant.meme
     ├── atac_grouping_lineage_markers.csv                # Curated lineage-marker TF list (CPA)
-    ├── median_RNAexpression_per_celltype.csv            # Pseudobulk expression, used for TF filtering
+    ├── median_RNAexpression_per_celltype.csv            # Pseudobulked expression (CPA), log10CPM, used for TF filtering
     └── pituitary_epigenomics.xlsx                       # Sample/dataset metadata sheet
 ```
 
