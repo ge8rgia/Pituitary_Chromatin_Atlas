@@ -132,13 +132,13 @@ ChIP/CUT&RUN data does not use the Tn5 transposase enzyme).
  
 | Dataset | Description | Source |
 |---|---|---|
-| Consensus Pituitary Atlas (CPA) | scATAC-seq/scRNA-seq, ~1.3M cells, 283 datasets (anterior pituitary lineages used here) | Kövér et al., 2026 (Andoniadou Lab) |
+| Consensus Pituitary Atlas (CPA) | scATAC-seq/scRNA-seq, ~1.3M cells, 59 datasets | Kövér et al., 2026 (Andoniadou Lab) |
 | Bulk ATAC-seq, GH3 lines | CTRL, Nfia+b OE (AB), Sox2 OE (SOX2), Nfia+b+Sox2 OE (ABS) | Andoniadou Lab (unpublished) |
 | Bulk ATAC-seq, AtT-20 (Neo/Pax7), LβT2, TaT1 | Corticotroph/melanotroph, gonadotroph, thyrotroph cell lines | Mayran et al. 2019; Ruf-Zamojski et al. 2018; Daly et al. 2021 |
 | POU1F1 CUT&RUN | TaT1 cell line | Daly et al. 2021 |
 | TBX19 ChIP-seq | AtT-20 cell line | Zhang et al. 2015 |
 | SOX2 ChIP-seq | AtT-20 cell line | Drouin Laboratory (unpublished) |
-| JASPAR CORE 2026 vertebrates | 2,059 non-redundant motifs | JASPAR |
+| JASPAR CORE 2026 vertebrates | 2059 non-redundant motifs | JASPAR |
 | Reference genomes | mm10 (mouse), rn6 (rat) + ENCODE blacklist | UCSC / ENCODE |
  
 Raw sequencing data and full-size trained models are not hosted in this repository due to
