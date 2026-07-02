@@ -25,7 +25,7 @@ Within the following script, I identify:
 
 ### HPC Parallelisation
 
-This list of 733 TF motifs was split into 3 separate lists to be run in parallel using the `MarginalFootprints` command (`chrombpnet_pipeline`) on the HPC cluster, for the sake of speed.
+This list of 733 TF motifs was split into 3 separate lists to be run in parallel using the `MarginalFootprints` command (`ChromBPNet_pipeline/3_Data_Generation`) on the HPC cluster, for the sake of speed.
 
 ### Libraries
 
@@ -247,7 +247,7 @@ write.table(
 
 ## Filter for TFs only present in stem cells
 
-This section filters for TFs present in adult stem cells, for filtering purposes in the `marginal_footprint_analysis/3_MF_PCA_analysis.ipynb` file when assessing footprint differences between neonatal and adult stem cells.
+This section filters for TFs present in adult stem cells, for filtering purposes in the `Downstream_Analyses/marginal_footprint_analysis/3_MF_PCA_analysis.ipynb` file when assessing footprint differences between neonatal and adult stem cells.
 
 ```{r}
 
