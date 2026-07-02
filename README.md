@@ -29,7 +29,6 @@ regulatory dynamics across pituitary lineage commitment.
 - [Environment & installation](#environment--installation)
 - [Reproducing the analysis](#reproducing-the-analysis)
 - [Model availability](#model-availability)
-- [Acknowledgements](#acknowledgements)
 
 ---
 
@@ -69,7 +68,6 @@ Pituitary_Chromatin_Atlas/
 │   └── 2_run_bpnet.sh               #   Training, evaluation, DeepLIFT attribution (contribution scores)
 │
 ├── ChromBPNet_pipeline/             # Custom ChromBPNet pipeline)
-│   ├── README.md                    #   ChromBPNet pipeline workflow
 │   ├── 1_Preprocessing/             #   Stage 1: fragment splitting, merging, peak/non-peak prep
 │   ├── 2_Model_Training/            #   Stage 2: Tn5 bias + bias-factorised ChromBPNet training
 │   ├── 3_Data_Generation/           #   Stage 3: predicted BigWigs, footprints, contributions, motifs
@@ -96,6 +94,7 @@ Pituitary_Chromatin_Atlas/
     ├── JASPAR_CORE_2026_redundant.meme                  # JASPAR 2026 vertebrate reduced list of motifs (951 motifs)
     ├── JASPAR_CORE_2026_with_novel_POU1F1.meme          # JASPAR 2026 vertebrate motifs + de novo POU1F1 motif (2060 motifs)
     ├── motif_sequences.tsv                              # Curated motif sequences from JASPAR_CORE_2026_non-redundant.meme
+    ├── PCA_motif_sequences.tsv                          # Reduced list of motif sequences used for downstream PCA analysis
     ├── atac_grouping_lineage_markers.csv                # Curated lineage-marker TF list (CPA)
     ├── median_RNAexpression_per_celltype.csv            # Pseudobulked expression (CPA), log10CPM, used for TF filtering
     └── pituitary_epigenomics.xlsx                       # Sample/dataset metadata sheet
@@ -110,7 +109,7 @@ The custom `ChromBPNet_pipeline/` is organised into three sequential stages (see
 [`chrombpnet`](https://github.com/kundajelab/chrombpnet) command-line pipeline. This adapts and expands the original 
 pipeline to accomodate the large scale Consensus Pituitary Atlas. 
 
-See `ChromBPNet_pipeline/README.md` for the organisation and functions of the workflow. 
+Refer to the [Wiki](https://github.com/ge8rgia/Pituitary_Chromatin_Atlas/wiki) for the organisation and functions of the workflow. 
 
 ### BPNet pipeline (ChIP-seq/CUT&RUN)
  
@@ -215,10 +214,4 @@ separately or in combination depending on the research expected. All `Downstream
 - **Example model + evaluation outputs**: `Example_Model_Evaluations/` (adult mm10
   lactotroph ChromBPNet model and its corresponding Tn5 bias model, provided as worked
   examples of expected directory structure and QC metrics).
-
----
-
-## Acknowledgements
-
-ADD ACKNOWLEDGEMENTS !!!!
 
