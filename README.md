@@ -1,6 +1,6 @@
 # Pituitary Chromatin Atlas
 
-(add abstract once written in here)
+ADD ABSTRACT ONCE WRITTEN !!!
 
 Base-resolution deep learning framework for mapping transcription factor (TF) binding dynamics in the single-cell and bulk ATAC-seq atlas of the mouse and rat pituitary gland.
 
@@ -199,12 +199,12 @@ is required for model training steps (Section 2), though inference/downstream an
 
 ## Reproducing the analysis
 
-MAKE A HTML FILE EXPLAINING FUNCTIONS OF THE CHROMBPNET PIPELINE!!!
+Wiki with detailed step-by step instructions: https://github.com/ge8rgia/Pituitary_Chromatin_Atlas/wiki
+
+This tutorial describes required inputs, expected outputs, and adjustable parameters (e.g., `bias_threshold_factor`, seqlet counts, PCA distance thresholds), all of which can be adapted based on the required analysis.
 
 The ChromBPNet and BPNet pipelines are annotated numerically, and should be reproduced following this structure. All downstream analyses can be conducted in any order, 
-separately or in combination depending on the research expected. All downstream analysis notebooks describe the inputs required, which link to one of the steps in the `ChromBPNet_pipeline/3_Data_Generation` workflow. 
-
-Each script directory contains its own header documentation describing required inputs, expected outputs, and adjustable parameters (e.g. `bias_threshold_factor`, seqlet counts, PCA distance thresholds), all of which can be adapted based on the required analysis. 
+separately or in combination depending on the research expected. All `Downstream_Analyses` notebooks describe the inputs required, which link to one of the steps in the `ChromBPNet_pipeline/3_Data_Generation` workflow. 
 
 ---
 
