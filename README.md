@@ -11,7 +11,7 @@ supervised by Cynthia Andoniadou, Grace Hui-Chun Lu, and Bence Kövér, Andoniad
 
 The pipeline applies [ChromBPNet](https://github.com/kundajelab/chrombpnet) — a
 bias-factorised, base-resolution deep learning model of chromatin accessibility — to the
-Andoniadou Lab's Consensus Pituitary Atlas (CPA) and complementary bulk ATAC-seq as well as [BPNet](https://github.com/jmschrei/bpnet-lite) models on ChIP-seq
+Andoniadou Lab's [Consensus Pituitary Atlas (CPA)](https://www.cell.com/cell-reports/fulltext/S2211-1247(26)00485-7) and complementary bulk ATAC-seq as well as [BPNet](https://github.com/jmschrei/bpnet-lite) models on ChIP-seq
 and CUT&RUN datasets, in order to identify TF binding events de novo and characterise
 regulatory dynamics across pituitary lineage commitment.
 
