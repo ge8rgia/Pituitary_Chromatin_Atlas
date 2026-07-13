@@ -14,6 +14,18 @@ MarginalFootprints() {
                 return 1
         fi
 
+        # Assign genome_name based on genome input
+        local genome_name=""
+        case "$genome" in
+                rn6)  genome_name="rat" ;;
+                mm10) genome_name="mouse" ;;
+                hg38) genome_name="human" ;;
+                *)
+                        echo "Error: Unknown genome '$genome'. Expected rn6, mm10, or hg38."
+                        return 1
+                        ;;
+        esac
+
         # Define paths
         inputDir="/scratch/prj/stem_cells_pituitary/Georgia"
         genome_fasta="$inputDir/genome/$genome/${genome}.fa"
@@ -31,7 +43,7 @@ MarginalFootprints() {
 
         # Run chrombpnet footprints pipeline
         chrombpnet footprints \
-                -m "$inputDir/ChromBPnet/Models/mouse/${cell_type}_model/models/chrombpnet_nobias.h5" \
+                -m "$inputDir/ChromBPnet/Models/${genome_name}/${cell_type}_model/models/chrombpnet_nobias.h5" \
                 -r "$background_regions" \
                 -g "$genome_fasta" \
                 -fl "$fold_json" \
@@ -144,6 +156,18 @@ MarginalFootprints_clusters() {
                 return 1
         fi
 
+	# Assign genome_name based on genome input
+        local genome_name=""
+        case "$genome" in
+                rn6)  genome_name="rat" ;;
+                mm10) genome_name="mouse" ;;
+                hg38) genome_name="human" ;;
+                *)
+			echo "Error: Unknown genome '$genome'. Expected rn6, mm10, or hg38."
+                        return 1
+                        ;;
+        esac
+
         # Define paths
         inputDir="/scratch/prj/stem_cells_pituitary/Georgia"
         genome_fasta="$inputDir/genome/$genome/${genome}.fa"
@@ -161,7 +185,7 @@ MarginalFootprints_clusters() {
 
         # Run chrombpnet footprints pipeline
         chrombpnet footprints \
-                -m "$inputDir/ChromBPnet/Models/mouse/${cell_type}_model/models/chrombpnet_nobias.h5" \
+                -m "$inputDir/ChromBPnet/Models/${genome_name}/${cell_type}_model/models/chrombpnet_nobias.h5" \
                 -r "$background_regions" \
                 -g "$genome_fasta" \
                 -fl "$fold_json" \
