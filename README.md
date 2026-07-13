@@ -208,7 +208,7 @@ separately or in combination depending on the research expected. All `Downstream
 ## Model availability
  
 - **Code & configuration**: this repository.
-- **Trained models** (all 40 bias and ChromBPNet models): hosted on [Hugging Face](https://huggingface.co/ge8rgia)
+- **Trained models** (all 40 Bias, ChromBPNet, and BPNet models): hosted on [Hugging Face](https://huggingface.co/ge8rgia)
 - **Example model + evaluation outputs**: `Example_Model_Evaluations/` (adult mm10
   lactotroph ChromBPNet model and its corresponding Tn5 bias model, provided as worked
   examples of expected directory structure and QC metrics).
