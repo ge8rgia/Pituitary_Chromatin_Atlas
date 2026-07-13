@@ -1,7 +1,5 @@
 # Pituitary Chromatin Atlas
 
-ADD ABSTRACT ONCE WRITTEN !!!
-
 Base-resolution deep learning framework for mapping transcription factor (TF) binding dynamics in the single-cell and bulk ATAC-seq atlas of the mouse and rat pituitary gland.
 
 This repository contains the custom pipeline, downstream analysis scripts, and metadata 
