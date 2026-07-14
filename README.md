@@ -77,7 +77,7 @@ Pituitary_Chromatin_Atlas/
 │   ├── contribution_score_analysis/      # IGV locus plots, correlations, MotifMatchr/FIMO scanning of high-contribution loci
 │   ├── marginal_footprint_analysis/      # Plot footprints, PCA of footprint changes, pseudotime comparisons
 │   ├── motif_analysis/                   # TF-MoDISco output parsing, JASPAR comparison, novel motif identification
-│   └── other/                            # RNA-seq integration, expression filtering, miscellaneous notebooks
+│   └── other/                            # RNA-seq integration, expression filtering, miscellaneous notebooks, model evaluation plotting
 │
 ├── Example_Model_Evaluations/
 │   ├── Tn5_bias_model_fold_0_mm10_adult_0.5/       # Example trained bias model + logs
