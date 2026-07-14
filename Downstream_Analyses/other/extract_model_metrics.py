@@ -9,7 +9,7 @@ Directory structure:
           overall_report.pdf
  
 Usage:
-    python extract_chrombpnet_metrics.py /path/to/Models
+    python extract_model_metrics.py /path/to/Models
  
 Output CSV: <base>/chrombpnet_metrics.csv
 """
