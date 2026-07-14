@@ -59,13 +59,14 @@ Pituitary_Chromatin_Atlas/
 ├── README.md
 ├── BPNet_environment.yml        # Conda environment for the BPNet pipeline
 ├── ChromBPNet_environment.yml   # Conda environment for the ChromBPNet pipeline
+├── figures/                     # Figures generated for the research project writeup (.svg)
 │
 ├── BPNet_pipeline/                  # BPNet models trained on ChIP-seq/CUT&RUN data
 │   ├── 0_negatives_bpnet.sh         #   GC-matched background region generation
 │   ├── 1_generate_JSON.sh           #   Pipeline configurations
 │   └── 2_run_bpnet.sh               #   Training, evaluation, DeepLIFT attribution (contribution scores)
 │
-├── ChromBPNet_pipeline/             # Custom ChromBPNet pipeline)
+├── ChromBPNet_pipeline/             # Custom ChromBPNet pipeline
 │   ├── 1_Preprocessing/             #   Stage 1: fragment splitting, merging, peak/non-peak prep
 │   ├── 2_Model_Training/            #   Stage 2: Tn5 bias + bias-factorised ChromBPNet training
 │   ├── 3_Data_Generation/           #   Stage 3: predicted BigWigs, footprints, contributions, motifs
@@ -84,7 +85,7 @@ Pituitary_Chromatin_Atlas/
 │   ├── bias_model_metrics.csv                      # Pearson r / JSD metrics, all bias models
 │   └── chrombpnet_metrics.csv                      # Pearson r / JSD metrics, all ChromBPNet models
 │
-└── Metadata/
+└── metadata/
     ├── consensus_chromatin_landscape_mm10_adult.bed     # Adult mm10 consensus peak set
     ├── consensus_chromatin_landscape_mm10_neonatal.bed  # Neonatal mm10 consensus peak set
     ├── consensus_chromatin_landscape_hg38.bed           # hg38 consensus peak set
